@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数字提交</title>
+</head>
+<body>
+    <h1>请输入一个数字：</h1>
+    <form id="numberForm">
+        <input type="number" id="numberInput" required>
+        <button type="submit">提交</button>
+    </form>
+    <script>
+        document.getElementById('numberForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const number = document.getElementById('numberInput').value;
+            await fetch('/.netlify/functions/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ number }),
+            });
+            alert('数字提交成功！');
+        });
+    </script>
+</body>
+</html>
